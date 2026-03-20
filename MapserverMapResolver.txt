@@ -1,4 +1,6 @@
-Mapserver/MapResolver:
+Mapserver/MapResolver: CISCO LISP: LOCATOR/ID SEPARATION PROTOCOL:
+EID: IP ADDRESS
+RLOC: LOCATION(ROUTER ID)
 CoreB:
 config t
 int lo 2
