@@ -1,0 +1,146 @@
+192.168.25.77/26
+11.21.31.201/29
+172.16.21.177/29
+
+@OSPF:
+router ospf 1
+network 192.168.25.64
+network 11.21.31.200 area 0
+network 172.16.21.176 area 0
+
+@BGP
+router 212
+neighbor 1.1.1.1 remote-as 213
+address-family ipv4
+
+DITE ELF
+down
+init
+two way
+exstart
+exchange
+loading
+FULL
+
+TASK 3: Configuring real worl BGP
+
+old: 32b vs new:64b
+conf t
+router bgp 1
+bgp log-neighbor-changes
+bgp router-id 1.1.1.1
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 209.9.9.3 rmote-as 3
+address-family ipv4
+neighbor 208.8.8.4 activate
+neighbor 207.7.7.2 activate
+neighbor 209.9.9.3 activate
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+network 10.1.1.0 mask 255.255.255.252
+end
+
+
+minimum skills
+P2#traceroute 8.8.8.8
+Type escape sequence to abort.
+Tracing the route to dns.google.com (8.8.8.8)
+VRF info: (vrf in name/id, vrf out name/id)
+  1 core2v10.rivanit.com (10.2.1.2) 2 msec 2 msec 2 msec
+  2 edge10-R4e11.rivanit.com (10.1.4.9) 2 msec 2 msec 1 msec
+  3 fortinet-R3e12.rivanit.com (10.1.1.9) 2 msec 2 msec 1 msec
+  4 paloalto-R2e11.rivanit.com (10.1.1.5) 2 msec 1 msec 2 msec
+  5 ciscofirepower-R1e10.bgp.rivanit.com (10.1.1.1) 2 msec 2 msec 1 msec
+  6 core208e13.isp1convergeict.com (208.8.8.4) 1 msec 1 msec 1 msec
+  7 core45e01.google.com (45.4.5.5) 1 msec *  1 msec
+
+config t
+router bgp 45
+address-family ipv6
+  network 2001:4860:4860::/64
+  network 8:8:8:8::/64
+
+
+netstat -s -p tcp
+
+TCP Statistics for IPv4
+
+  Active Opens                        = 11246
+  Passive Opens                       = 64
+  Failed Connection Attempts          = 1240
+  Reset Connections                   = 89
+  Current Connections                 = 34
+  Segments Received                   = 574775
+  Segments Sent                       = 494206
+  Segments Retransmitted              = 3882
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State
+  TCP    10.3.3.171:11707       relay-24f591c7:https   ESTABLISHED
+
+
+
+
+HOW TO AGGREGATE IN OSPF<BGP< EIGRP
+
+172.16.0.0/16
+172.17.0.0/16 === SUMMARY-ADDRESS 172.16.0.0/14
+172.18.0.0/16
+
+192.168.9.0/24
+192.168.10.0/24
+192.168.11.0/24 === SUMMARY-ADDRESS 192.168.9.8/21
+192.168.12.0/24
+192.168.13.0/24
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

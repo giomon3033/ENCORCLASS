@@ -1,0 +1,252 @@
+DAY 4
+RivanCorp SDWAN Deployment Lab
+
+SDN / SDWAN
+Managment Plane - interact with Engr
+Conrol Plane    - decision making
+Data Plane      - action/forwarding
+Orchestration Plane - 
+
+Data Center: APIC
+Enterprise: DNA
+
+User
+v
+GUI =? REST API / RESTCONF
+v
+SDN CONTROLLER => Openflow / optflex / sdwan NETCONF
+v
+
+CMD - route add 10.69.255.13 mask 255.255.255.255 10.69.255.6
+
+vpn_if_ipv4_address
+
+vEDGE ONBOARDING
+
+!@vEDGE MINDANAO
+vshell
+cd /home/admin/pkcerts
+
+32913 - PKI CA
+!@PKI-CA
+conf t
+ crypto pki export rivanpki pem terminal 
+
+
+-----BEGIN CERTIFICATE-----
+MIIDIDCCAgigAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMR8wHQYDVQQDExZyb290
+Y2EuUklWQU5DT1JQLmxvY2FsMB4XDTI2MDExODE5MDIxMloXDTI5MDExNzE5MDIx
+MlowITEfMB0GA1UEAxMWcm9vdGNhLlJJVkFOQ09SUC5sb2NhbDCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBANHmliLVoDJpoP/QYY9BYNoM5nYmqHTiWrcz
+/edesixyK6l4a5e4sFVjFnUxf/+1ND4FIUE3zsDDJEtvmiziO+/ObM+e34uSvQKU
+UoLIsUC96LQ+uwSrcWlA+0EYb9x+uHj1+sKKFE1n2paWcWHYxyy4Fdg0h/8vV4jJ
+/yLvPrsI0Tp8HvZBMiNQmZihliNc9eiBToeWci3FkIbpoylOsih+Pt9gAjHisJpJ
+2mATA0xcz5dt0DHM49zyIYUm4/F8i/NehDi98RanANgBlFVHHdIrcikAtqKq2usg
+iTtxqfRDGfinEp7N2lQcflQmwkwrGrfpTC4FX5+QLtVRst//560CAwEAAaNjMGEw
+DwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAYYwHwYDVR0jBBgwFoAUWTJM
+3TFjBLb5mucfAOAjH+36gPQwHQYDVR0OBBYEFFkyTN0xYwS2+ZrnHwDgIx/t+oD0
+MA0GCSqGSIb3DQEBCwUAA4IBAQA3f/bSd3vrB6u5F6nKMufwPoxVkRAnrTba1Ss+
+jvnjJIZ0MbXnZdHaJyZM6Lof58HRE66Kg8sYeyd+VRHthSjR+rBGfqovUqm0mTeS
+4NdwngebSbP/zrZKNsu7o/dazfJOdnNBrSqrWKoDliwXdtfrwWbei6/swX4WBVEF
+EthIAgr2uvKKbKJleBk9j5spAz9JS9nAI2nJ0D/scFbpxcxHtjuNSypGxbvUA6E8
+CihCAdhQxaGsO00S598LTCgtQepq3A0o39ER1u7L2Qa19lZXKr7jVVs7MTJlnXZo
+dVb5NArbTAGGmpvcr8FdxjMN8LPBvD9a22GpnHUkZJxI1iah
+-----END CERTIFICATE-----
+
+
+///
+
+-----BEGIN CERTIFICATE REQUEST-----
+MIIDSTCCAjECAQAwgcgxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+MREwDwYDVQQHEwhTYW4gSm9zZTESMBAGA1UECxMJUklWQU5DT1JQMRYwFAYDVQQK
+Ew1DaXNjbyBTeXN0ZW1zMUEwPwYDVQQDEzh2ZWRnZS01ZjRiZTE3Yi04ZTZhLTQ2
+YWUtOTQ2Ny0zNWIyNmY1ZDU2OWEtMS52aXB0ZWxhLmNvbTEiMCAGCSqGSIb3DQEJ
+ARYTc3VwcG9ydEB2aXB0ZWxhLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAKDZHbxLY/sNb33mh0NkY1Empr2om9foe3QHOr8RCO2ID+ansVjgcSG+
+oCdNJDf0tFdL1ErfR5sKAbDe6PXkMdW8JP1V7wiIKZL/61hA65PkWDsu7Q9dqYF+
+P9EP1biclCgAiI0h4sZzGmRUHNlHnpVdXcCNOS27Bbma7TauPP9hSofWHgvS/FXz
+MPI598m5xdxfkocabypD0oMAMi/4fPZW376oo69a5K8RriLTO5MmonAM3kaXqXBe
+qk8NJJa7fTRmEg+LPWM3TlvCjUVBDISvEmtir8ii85y0rGdeVdgu9aOqoTHW3Vh9
+BuuAMnPXPP41QFuZM+JFMepUVShw3esCAwEAAaA7MDkGCSqGSIb3DQEJDjEsMCow
+CQYDVR0TBAIwADAdBgNVHQ4EFgQUeQ5dIVNA4/yP5NmdoCB5KKPDdbowDQYJKoZI
+hvcNAQELBQADggEBACDXNqERcp0Z2d2d0rw+CEujlZ02cNCb2ZO7Ftg2OwAig29I
+Sk6Mi1GmhR2Yc2+oyYPv/1XP8VjaatM0RUQNTZSMy9VxtwRKKhauYCzfPlxYZDjh
+3OlZy5V6ht89KZ0eEDMsOSmdxB03gUpVnzuahCzeqM5eHqjE12g6QnAoL4SOAkBe
+OLdXlc7Jlt4xROjulpu6MARHUh8V3pvuGVcNohEMWk7/2AsBfJxdmjUpoYEWGFHD
+Y9oYpWL/B2omrFlYdwYFPRoL5fErBEbteduC9XTKhFwRdAHfg6pRw0kct0pFbs3G
+6lsqAsj2fMgoFnRQLYx6sfIX7fX+oxU+duG86hQ=
+-----END CERTIFICATE REQUEST-----
+
+
+
+
+show cer	
+
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+
+
+65E4E723255E66E4
+
+30E8892D8E1DEEB4
+
+IKEv2 w/ VTI
+
+conf t
+ crypto ikev2 proposal IKEV2-PROP
+  encryption aes-cbc-256
+  integrity sha256
+  group 14
+ !
+ crypto ikev2 policy IKEV2-POL
+  proposal IKEV2-PROP
+ !
+ crypto ikev2 profile IKEV2-PROF
+  match identity remote address 208.8.8.12 255.255.255.255
+  authentication remote rsa-sig
+  authentication local rsa-sig
+  pki trustpoint CCNPTRUST
+  end
+
+///
+
+JP
+
+conf t
+ crypto ikev2 proposal IKEV2-PROP
+  encryption aes-cbc-256
+  integrity sha256
+  group 14
+ !
+ crypto ikev2 policy IKEV2-POL
+  proposal IKEV2-PROP
+ !
+ crypto ikev2 profile IKEV2-PROF
+  match identity remote address 208.8.8.11 255.255.255.255
+  authentication remote rsa-sig
+  authentication local rsa-sig
+  pki trustpoint CCNPTRUST
+  end
+
+
+///
+
+
+
+!@UTM-PH, UTM-JP
+conf t
+ crypto ipsec transform-set TSET esp-aes 256 esp-sha256-hmac
+  mode transport
+ !
+ crypto ipsec profile VPN-IPSEC-PROF
+  set transform-set TSET
+  set ikev2-profile IKEV2-PROF
+  end
+
+
+conf t
+ int tun1
+  ip add 172.16.1.1 255.255.255.252
+  tunnel source g1
+  tunnel destination 208.8.8.12
+  tunnel mode ipsec ipv4
+  tunnel protection ipsec profile VPN-IPSEC-PROF
+  end
+
+
+
+JP
+conf t
+ int tun1
+  ip add 172.16.1.2 255.255.255.252
+  tunnel source g1
+  tunnel destination 208.8.8.11
+  tunnel mode ipsec ipv4
+  tunnel protection ipsec profile VPN-IPSEC-PROF
+  end
+
+
+
+
+
+
+conf t
+ ip route 21.21.21.208 255.255.255.240 172.16.1.2
+ end
+
+
+conf t
+ ip route 11.11.11.96 255.255.255.224 172.16.1.1
+ end
+
+
+
+Wireshark filter = isakmp || esp
+
+
+ZONE 
+ sudo su
+ ifconfig eth0 208.8.8.100 netmask 255.255.255.0 up
+ route add default gw 208.8.8.11
+
+
+!@UTMPH
+conf t
+ zone security OUTSIDE
+ desc PUBLIC
+ zone security INSIDE
+ desc PRIVATE
+ zone security DMZ
+ desc DMZ
+ exit
+!
+int g1
+ zone-member security OUTSIDE
+int g3
+ zone-member security INSIDE
+ end
+
+///
+!@UTMPH
+conf t
+ ip access-list extended IN-OUT
+  permit ip any any
+  exit
+ ip access-list extended OUT-IN
+  deny ip any any
+  end
+
+!@UTMPH
+conf t
+ class-map type inspect match-any CM-IN-OUT
+  match access-group name IN-OUT
+ class-map type drop match-any CM-OUT-IN
+  match access-group name OUT-IN
+
+!@UTMPH
+conf t
+ policy-map type inspect PM-IN-OUT
+  class type inspect CM-IN-OUT
+   inspect
+  class class-default
+   drop log
+   exit
+ policy-map type inspect PM-OUT-IN
+ class type inspect CM-OUT-IN
+   drop
+  class class-default
+   drop log
+   end
+
+!@UTMPH
+conf t
+ zone-pair security PM-IN-OUT source INSIDE destination OUTSIDE
+  service-policy type control PM-IN-OUT
+ zone-pair security PM-OUT-IN  source OUTSIDE destination INSIDE
+  service-policy type control PM-OUT-IN
+
+
+
+
+
+
+

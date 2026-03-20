@@ -1,0 +1,256 @@
+DAY 5
+VRF, DR, DT For MB
+
+ip vrf clientMETROa
+   rd 777:6
+   route-target 69777:5
+   exit
+
+
+
+
+ip vrf clientMETROb
+  rd 777:6
+  route-target 69777:5
+  exit
+
+PEN ultimate hop
+
+
+
+***
+
+
+Mapserver/MapResolver: CISCO LISP: LOCATOR/ID SEPARATION PROTOCOL:
+EID: IP ADDRESS
+RLOC: LOCATION(ROUTER IP)
+CoreB:
+config t
+int lo 2
+ip add 2.2.2.2 255.255.255.255
+ip ospf 1 area 0
+
+
+PeZ:
+config t
+int lo 1
+ip add 1.1.1.1 255.255.255.255
+end
+
+CoreA:
+config t
+int lo 3
+ip add 3.3.3.3 255.255.255.255
+end
+
+LISP CONFGIURATION: MAP SERVER/MAP RESOLVER.
+R2: mapserver/mapresolver: can Ping everyone:
+
+config t
+router lisp
+ipv4 map-server
+ipv4 map-resolver
+!
+lisp site siteR3
+eid-prefix 3.3.3.3/32
+authentication-key rivansite3
+!
+lisp site siteR1
+eid-prefix 1.1.1.1/32
+authentication-key rivansite1
+!
+ip lisp map-server
+ip lisp map-resolver
+!
+show lisp site summary
+show ip lisp map-cache
+show ip lisp database
+end
+
+@ETR/ITR:
+PeZ:
+config t
+router Lisp
+database-mapping 1.1.1.1/32 10.1.1.1 priority 1 weight 100
+ipv4 itr
+ipv4 itr map-resolver 2.2.2.2
+ipv4 etr
+ipv4 etr map-server 2.2.2.2 key rivansite1
+end
+
+
+CoreA:
+config t
+router Lisp
+database-mapping 3.3.3.3/32 10.1.1.6 priority 1 weight 100
+ipv4 itr
+ipv4 itr map-resolver 2.2.2.2
+ipv4 etr
+ipv4 etr map-server 2.2.2.2 key rivansite3
+end
+
+
+
+//////
+
+R2: mapserver/mapresolver: can Ping everyone:
+
+config t
+router lisp
+ipv4 map-server
+ipv4 map-resolver
+!
+lisp site siteR4
+eid-prefix 4.4.4.4/32
+authentication-key rivansite3
+!
+ip lisp map-server
+ip lisp map-resolver
+!
+show lisp site summary
+show ip lisp map-cache
+show ip lisp database
+end
+
+@ETR/ITR:
+PeZ:
+config t
+router Lisp
+database-mapping 4.4.4.4/32 10.1.1.1 priority 1 weight 100
+ipv4 itr
+ipv4 itr map-resolver 2.2.2.2
+ipv4 etr
+ipv4 etr map-server 2.2.2.2 key rivansite1
+end
+
+
+CoreA:
+config t
+router Lisp
+database-mapping 4.4.4.4/32 10.1.1.6 priority 1 weight 100
+ipv4 itr
+ipv4 itr map-resolver 2.2.2.2
+ipv4 etr
+ipv4 etr map-server 2.2.2.2 key rivansite3
+end
+
+
+CISCO PORT MONITORING MIRRORING: CCNP LAB
+how to blackmail floodcontrol congressman:
+conf t
+ monitor session 1 source int fa0/3, fa0/5, fa0/7 both
+!send to packet analyzer
+monitor session 1 destination interface fa0/1
+end
+
+
+
+5th LAB possible lab in exam , hsrp or glbp
+Coretaas: PLDT PRIMARY
+conf t
+ track 1 int gig 0/1 line-protocol
+ int vlan 1
+ standby 1 ip 10.92.1.6
+ standby 1 preempt
+ stanby 1 priority 150
+ standby 1 track 1 decrement 60
+ do sh standby
+
+CoreBaba: Globe Secondary
+conf t
+ int vlan 1
+ standby 1 ip 10.92.1.6
+ standby 1 preempt
+ standby 1 priority 100
+ do sh standby
+
+
+
+
+config t
+flow exporter MyFlowExporter
+ destination 192.168.102.1  
+ transport udp 2055
+ export-protocol netflow-v9
+end
+
+
+config t
+	flow exporter CCNP8-COLLECTOR-HOST 
+        destination 192.168.102.1  ==>>> lalabas sa exam
+	export-protocol netflow-v9 
+        transport UDP 2055
+	end
+show flow exporter CCNP8-COLLECTOR-HOST
+
+config t
+	interface gigabit 2
+	ip flow monitor CCNP8-INBOUND-MONITOR input 
+	ip flow monitor CCNP8-OUTBOUND-MONITOR output 
+
+
+
+@Telco1:
+config t
+no ip sla 4
+ip sla 4 
+  icmp-echo 8.8.8.8
+  freq 5
+  exit
+ip  sla  schedule 4 life forever start-time now  ==>> lallabas sa exam
+track  4  ip sla 4
+  delay down 10 up 5
+  exit
+Int gi 2
+NO standby 2 track 2 decrement 60
+standby 2 track 4 decrement 60 
+
+
+
+BLDNGPH
+ifconfig eth0 192.168.103.21 netmask 255.255.255.0 up
+route add default gw 192.168.103.11
+ping 192.168.103.11
+
+BLDNGJP
+ifconfig eth0 192.168.103.22 netmask 255.255.255.0 up
+route add default gw 192.168.103.11
+ping 192.168.103.11
+
+
+LALABAS SA EXAM
+config t
+ time-range NOGOOGLE
+ periodic weekdays 14:10 to 14:15
+ exit
+! 
+ time-range NO1111
+ periodic weekdays 14:12 to 14:15
+ exit
+!
+ip access-list extended TIMEBASED
+ permit icmp host 192.168.103.21 host 8.8.8.8 time-range NOGOOGLE
+ permit icmp host 192.168.103.22 host 1.1.1.1 time-range NO1111
+ end
+int g3
+ ip access-group TIMEBASED in
+ end
+
+//// 
+
+zabix 
+to lnow the ip in vmware ip -4 addr or ip addr 
+
+
+
+208.8.8.133
+
+V2
+conf t
+access-list 10 permit 208.8.8.133
+snmp-server community public RO 10
+
+V3
+snmp-server group zabbix v3 priv
+snmp-server user admin zabbix v3 auth sha C1sc0123 priv aes 123 C1sc0123
+

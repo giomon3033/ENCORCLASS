@@ -1,0 +1,91 @@
+
+
+net use x: \\ip adddd\c$
+\\208.8.8.135\c$
+
+
+
+http://192.168.102.133/otrs/index.pl
+admin
+C1sc0123
+
+http://192.168.102.133/otrs/customer.pl
+user1
+C1sc0123
+
+
+!@wazuh creds
+root
+C1sc0123
+sudo systemctl stop firewalld
+ip addr
+
+website https:/208.8.8.137
+admin
+C1sc0123..
+
+<directories realtime="yes" report_changes="yes" check_all="yes">C:\Users\Administrator\Desktop\jms33</directories>
+
+
+!@elastic creds
+root
+C1sc0123
+sudo systemctl stat elasticsearch.service
+
+website: http://ipaddress:5601
+elastic
+C1sc0123
+
+!@csr1000v
+conf t
+int g1
+ip addr dhcp
+no shut
+end
+show ip int brief
+
+conf t
+logging on
+logging host 208.8.8.133 transport udp port 9001
+logging trap informational
+end
+
+---------
+
+!@csr1000v
+conf t
+
+exec-timeout 0 0
+login local
+end
+
+---------
+
+conf t
+archive
+log config
+logging enable
+notify syslog
+end
+--------
+
+conf t
+login on-failure log
+login on-success log
+end
+
+--------
+
+conf t
+access-list 100 deny ip any host 208.8.8.136 log
+access-list 100 permit ip any any
+interface g1
+ip access-group 100 in
+
+-------
+conf t
+int g0/0
+no ip access-group 100 in
+end
+
+
